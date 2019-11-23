@@ -12,7 +12,7 @@
 |Column|Type|Options|
 |------|----|-------|
 |group_name|name|null: false|
-|group_users|name|null: false|
+||name|null: false|
 |user_id|integer|null: false, foreign_key: true|
 ### Association
 - belongs_to :user
