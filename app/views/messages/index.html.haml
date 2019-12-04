@@ -8,13 +8,13 @@
           = @group.name
           %ul.left-header__members
             Member：
-          %li.member
+            %li.member
             メンバー
             -# - @group.users each |user|
-          -#   = user.name
+            -# = user.name
       .right-header
         .right-header__button
-          = link_to 'Edit', edit_group_path(@group)
+        = link_to 'Edit', edit_group_path(@group)
     .messages
       = render @messages
     .form
@@ -22,6 +22,6 @@
         = f.text_field :content, class: 'form__message', placeholder: 'type a message'
         .form__mask
           = f.label :image, class: 'form__mask__image' do
-            = icon('fas', 'image', class: 'icon')
+            = icon('fa', 'image', class: 'icon')
             = f.file_field :image, class: 'hidden'
         = f.submit 'Send', class: 'form__submit'
