@@ -8,13 +8,12 @@
           = @group.name
           %ul.left-header__members
             Member：
-            %li.member
-            メンバー
-            -# - @group.users each |user|
-            -# = user.name
+          %li.member
+            - @group.users.each do |user| 
+              =user.name
       .right-header
         .right-header__button
-        = link_to 'Edit', edit_group_path(@group)
+          = link_to 'Edit', edit_group_path(@group)
     .messages
       = render @messages
     .form
