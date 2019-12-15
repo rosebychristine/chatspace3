@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: chatspace3_production
-  username: chatspace3
-  password: <%= ENV['CHATSPACE3_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
