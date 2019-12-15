@@ -1,13 +1,14 @@
 $(function(){ 
+
   function buildHTML(message){
-    image = ( message.image ) ? "<img src=${message.image}>" : ""
+    var image = ( message.image ) ? `<img src=${message.image}>` : "" ;
      let html = `<div class="message" data-message-id=${message.id}>
                     <div class="upper-message">
                       <div class="upper-message__user-name">
                         ${message.user_name}
                       </div>
                       <div class="upper-message__date">
-                        ${message.date}
+                        ${message.created_at}
                       </div>
                     </div>
                     <div class="lower-message">
@@ -15,7 +16,7 @@ $(function(){
                         ${message.content}
                       </p>
                     </div>
-                    <img src=${message.image} >
+                    ${image} 
                   </div>`
      return html;
    }
@@ -43,4 +44,51 @@ $('#new_message').on('submit', function(e){
   });
   return false;
 });
+
+$(function(){
+
+  function buildHTML(message){
+    var image = ( message.image ) ? `<img src=${message.image}>` : ""
+     let html = `<div class="message" data-message-id=${message.id}>
+                    <div class="upper-message">
+                      <div class="upper-message__user-name">
+                        ${message.user_name}
+                      </div>
+                      <div class="upper-message__date">
+                        ${message.created_at}
+                      </div>
+                    </div>
+                    <div class="lower-message">
+                      <p class="lower-message__content">
+                        ${message.content}
+                      </p>
+                    </div>
+                    ${image} 
+                  </div>`
+     return html;
+   }
+ var reloadMessages = function(){
+  if (window.location.href.match(/\/groups\/\d+\/messages/)){
+  last_message_id = $('.message').last().data("message-id");
+  $.ajax({
+    url: "api/messages",
+    type: 'get',
+    dataType: 'json',
+    data: {id: last_message_id}
+  })
+  .done(function(messages) {
+    var insertHTML = '';
+    messages.forEach(function (message) {
+      insertHTML = buildHTML(message)
+      $('.messages').append(insertHTML);
+    $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+  })
+})
+  .fail(function() {
+    alert('error');
+  });
+};
+ }
+setInterval(reloadMessages, 5000);
+  });
 });
